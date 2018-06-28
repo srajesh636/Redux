@@ -1,15 +1,22 @@
 import { createStore, applyMiddleware ,combineReducers } from "redux";
+// Middleware from redux package for logging the changes.
 import { createLogger } from "redux-logger";
 
+// initial state for profileReducer
 const initialStage = {
   name: "rajesh",
   age: 21,
   gender: "male"
 };
 
+//initial state for mathReducer
+
 const data={
   value:10
 }
+
+
+
 const profileReducer = (state = initialStage, action) => {
   switch (action.type) {
     case "CHANGE_NAME":
@@ -49,7 +56,10 @@ const mathReducer=(state=data,action)=>{
 
 
 }
+//creating a store
 const store = createStore(combineReducers({profileReducer,mathReducer}), {}, applyMiddleware(createLogger()));
+
+
 
 const action = {
   type: "CHANGE_NAME",
@@ -60,9 +70,6 @@ const action2 = {
   type: "CHANGE_AGE",
   payload: 20
 };
-store.subscribe(() => {
-  console.log("store updated", store.getState());
-});
 
 const add={
   type:"ADD",
@@ -72,3 +79,7 @@ const add={
 store.dispatch(action);
 store.dispatch(action2);
 store.dispatch(add);
+
+store.subscribe(() => {
+  console.log("store updated", store.getState());
+});
